@@ -1,0 +1,55 @@
+# Dependencies
+node_modules/
+client/node_modules/
+server/node_modules/
+.pnp
+.pnp.js
+
+# Production builds & caches
+dist/
+client/dist/
+build/
+.vite/
+.cache/
+
+# Environment variables (keep example templates)
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+server/.env
+server/.env.*
+client/.env
+client/.env.*
+!.env.example
+!server/.env.example
+!client/.env.example
+
+# Private evidence uploads & temporary runtime files
+uploads/
+server/uploads/
+tmp/
+temp/
+
+# Logs & diagnostics
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Test coverage
+coverage/
+.nyc_output/
+
+# Editor & OS files
+.vscode/*
+!.vscode/extensions.json
+.idea/
+*.swp
+*.swo
+.DS_Store
+Thumbs.db
+desktop.ini
