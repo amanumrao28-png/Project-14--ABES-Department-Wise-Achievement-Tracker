@@ -64,11 +64,10 @@ function validateProductionEnv() {
     return;
   }
 
+  const hasDatabaseUrl = Boolean(process.env.DATABASE_URL && process.env.DATABASE_URL.trim() !== '');
+
   const requiredVars = [
-    'DB_HOST',
-    'DB_NAME',
-    'DB_USER',
-    'DB_PASSWORD',
+    ...(hasDatabaseUrl ? [] : ['DB_HOST', 'DB_NAME', 'DB_USER', 'DB_PASSWORD']),
     'JWT_ACCESS_SECRET',
     'JWT_REFRESH_SECRET',
   ];
