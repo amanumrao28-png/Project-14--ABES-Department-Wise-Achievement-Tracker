@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import { ArrowLeft, Layers, Lock, ShieldCheck } from 'lucide-react';
+import abesLogo from '../../assets/abes-logo.png';
 
 export function AuthBrandLayout({
   subtitle = 'Department-Wise Achievement Tracker',
@@ -9,7 +10,11 @@ export function AuthBrandLayout({
     <div className="auth-shell">
       <section className="auth-brand-panel" aria-label="Institutional platform overview">
         <div className="auth-brand-header">
-          <div className="auth-brand-mark">AB</div>
+          <img
+            src={abesLogo}
+            alt="ABES Engineering College Logo"
+            style={{ width: 42, height: 42, objectFit: 'contain', flexShrink: 0 }}
+          />
           <div>
             <h2 className="auth-brand-title">ABES Engineering College</h2>
             <p className="auth-brand-subtitle">{subtitle}</p>

@@ -34,6 +34,7 @@ import { ROLES, ROLE_LABELS } from '../constants/roles.js';
 import { RoleBadge } from './StatusBadge.jsx';
 import { ACADEMIC_YEAR_OPTIONS } from './tracker/AchievementStatusBadge.jsx';
 import { ChangePasswordModal } from './ChangePasswordModal.jsx';
+import abesLogo from '../assets/abes-logo.png';
 
 const ICON_MAP = {
   'layout-dashboard': LayoutDashboard,
@@ -235,7 +236,11 @@ export function PortalShell({
       >
         <div className="sidebar-brand">
           <Link to={homeRoute} className="sidebar-brand-link" title={portalName}>
-            <div className="sidebar-brand-badge">ABES</div>
+            <img
+              src={abesLogo}
+              alt="ABES Engineering College Logo"
+              style={{ width: 36, height: 36, objectFit: 'contain', flexShrink: 0 }}
+            />
             <div className="sidebar-brand-text">
               <strong>{portalName}</strong>
               <span>{portalSubtitle}</span>

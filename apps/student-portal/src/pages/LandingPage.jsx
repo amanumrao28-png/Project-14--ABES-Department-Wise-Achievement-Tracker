@@ -14,6 +14,7 @@ import { useAuth } from '@shared/auth/AuthContext.jsx';
 import { getHomeRouteForRole } from '@shared/constants/roles.js';
 import { publicApi } from '@shared/api/publicApi.js';
 import abesCampusImg from '@shared/assets/abes-campus.jpg';
+import abesLogo from '@shared/assets/abes-logo.png';
 
 function useScrollReveal() {
   const ref = useRef(null);
@@ -94,7 +95,11 @@ export function LandingPage() {
       <div className="landing-nav-wrap">
         <header className="landing-nav">
           <Link to="/" className="landing-brand">
-            <div className="landing-brand-mark">AB</div>
+            <img
+              src={abesLogo}
+              alt="ABES Engineering College Logo"
+              style={{ width: 38, height: 38, objectFit: 'contain', flexShrink: 0 }}
+            />
             <div>
               <div style={{ fontWeight: 700, fontSize: 15, fontFamily: 'var(--font-display)' }}>
                 ABES Achievement Tracker
@@ -183,8 +188,8 @@ export function LandingPage() {
             {/* Selective Glass Floating Preview */}
             <div className="hero-floating-preview glass-panel">
               <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 12 }}>
-                <span className="badge badge-active">
-                  <CheckCircle2 size={12} />
+                <span className="badge badge-active" style={{ display: 'inline-flex', alignItems: 'center', gap: 6 }}>
+                  <span className="live-pulse-dot" aria-hidden="true" />
                   Public Verified Registry
                 </span>
                 <span className="form-hint">

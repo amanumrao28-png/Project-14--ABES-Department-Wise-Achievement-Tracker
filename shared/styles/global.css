@@ -287,13 +287,17 @@ input[type='radio'] {
   width: 100%;
 }
 
-.btn-primary {
+.btn-primary,
+a.btn-primary {
   background: var(--color-accent);
   color: #FFFFFF;
 }
 
-.btn-primary:hover:not(:disabled) {
+.btn-primary:hover:not(:disabled),
+a.btn-primary:hover {
   background: var(--color-accent-hover);
+  color: #FFFFFF;
+  text-decoration: none;
   box-shadow: var(--shadow-sm);
 }
 
