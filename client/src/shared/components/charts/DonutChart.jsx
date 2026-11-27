@@ -1,11 +1,11 @@
 const DONUT_PALETTE = [
-  '#2563EB',
-  '#111827',
-  '#16A34A',
-  '#D97706',
-  '#64748B',
-  '#DC2626',
-  '#334155'
+  'var(--chart-1)',
+  'var(--chart-2)',
+  'var(--chart-3)',
+  'var(--chart-4)',
+  'var(--chart-5)',
+  'var(--chart-6)',
+  'var(--color-sage-400)'
 ];
 
 export function DonutChart({
@@ -33,7 +33,7 @@ export function DonutChart({
           cy={size / 2}
           r={radius}
           fill="transparent"
-          stroke="#e2e8f0"
+          stroke="var(--chart-grid)"
           strokeWidth={strokeWidth}
         />
 
@@ -70,7 +70,7 @@ export function DonutChart({
           textAnchor="middle"
           fontSize="20"
           fontWeight="700"
-          fill="#0f172a"
+          fill="var(--color-text)"
         >
           {total}
         </text>
@@ -79,7 +79,7 @@ export function DonutChart({
           y={size / 2 + 14}
           textAnchor="middle"
           fontSize="11"
-          fill="#64748b"
+          fill="var(--color-text-secondary)"
         >
           {centerLabel}
         </text>

@@ -3,6 +3,7 @@ import assert from 'node:assert/strict';
 import http from 'node:http';
 
 import app from '../../app.js';
+import db from '../../config/database.js';
 import { ROLES, WORKFLOW_STATUSES } from '../../config/env.js';
 import { resolveDepartmentTransition } from '../../modules/department-tracker/dept.workflow.js';
 import { resolveFacultyTransition } from '../../modules/faculty-tracker/faculty.workflow.js';
@@ -335,4 +336,8 @@ test('OCR extraction parses certificate fields and never marks extraction as aut
   assert.equal(result.extracted.achieved_on, '2025-03-15');
   assert.equal(result.extracted.certificate_number, 'CERT-IEEE-2025-881');
   assert.ok(result.extracted.achievement_title);
+});
+
+test.after(async () => {
+  await db.destroy();
 });

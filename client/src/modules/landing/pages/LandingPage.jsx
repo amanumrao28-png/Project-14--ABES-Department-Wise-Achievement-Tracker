@@ -175,12 +175,12 @@ export function LandingPage() {
               >
                 <defs>
                   <linearGradient id="archSky" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="0%" stopColor="#0F172A" />
-                    <stop offset="100%" stopColor="#1E293B" />
+                    <stop offset="0%" stopColor="#0F2B24" />
+                    <stop offset="100%" stopColor="#173F35" />
                   </linearGradient>
                 </defs>
                 <rect width="640" height="420" fill="url(#archSky)" />
-                <g stroke="rgba(148,163,184,0.16)" strokeWidth="1">
+                <g stroke="rgba(143,174,155,0.18)" strokeWidth="1">
                   <line x1="0" y1="90" x2="640" y2="90" />
                   <line x1="0" y1="180" x2="640" y2="180" />
                   <line x1="0" y1="270" x2="640" y2="270" />
@@ -189,15 +189,15 @@ export function LandingPage() {
                   <line x1="480" y1="0" x2="480" y2="420" />
                 </g>
                 {/* Modern Campus Silhouette & Pillars */}
-                <rect x="70" y="160" width="500" height="210" rx="6" fill="#111827" stroke="#334155" />
-                <rect x="90" y="130" width="460" height="30" rx="4" fill="#1E293B" stroke="#475569" />
-                <polygon points="320,66 560,130 80,130" fill="#1E293B" stroke="#3B82F6" strokeOpacity="0.45" />
-                <rect x="115" y="185" width="48" height="155" rx="3" fill="#1E293B" />
-                <rect x="200" y="185" width="48" height="155" rx="3" fill="#1E293B" />
-                <rect x="296" y="185" width="48" height="155" rx="3" fill="#2563EB" fillOpacity="0.28" stroke="#60A5FA" strokeOpacity="0.5" />
-                <rect x="392" y="185" width="48" height="155" rx="3" fill="#1E293B" />
-                <rect x="477" y="185" width="48" height="155" rx="3" fill="#1E293B" />
-                <rect x="52" y="368" width="536" height="14" rx="3" fill="#334155" />
+                <rect x="70" y="160" width="500" height="210" rx="6" fill="#12322A" stroke="#266353" />
+                <rect x="90" y="130" width="460" height="30" rx="4" fill="#173F35" stroke="#8FAE9B" strokeOpacity="0.45" />
+                <polygon points="320,66 560,130 80,130" fill="#173F35" stroke="#D9A441" strokeOpacity="0.65" />
+                <rect x="115" y="185" width="48" height="155" rx="3" fill="#1F5144" />
+                <rect x="200" y="185" width="48" height="155" rx="3" fill="#1F5144" />
+                <rect x="296" y="185" width="48" height="155" rx="3" fill="#26735B" fillOpacity="0.72" stroke="#D9A441" strokeOpacity="0.8" />
+                <rect x="392" y="185" width="48" height="155" rx="3" fill="#1F5144" />
+                <rect x="477" y="185" width="48" height="155" rx="3" fill="#1F5144" />
+                <rect x="52" y="368" width="536" height="14" rx="3" fill="#266353" />
               </svg>
             </div>
 

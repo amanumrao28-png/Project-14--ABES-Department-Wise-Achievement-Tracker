@@ -45,7 +45,7 @@ export function PublicPassportPage() {
     <div className="page-content" style={{ maxWidth: 960, margin: '2rem auto' }}>
       <div className="page-header" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: '1rem' }}>
         <div>
-          <div style={{ display: 'inline-flex', alignItems: 'center', gap: '0.4rem', fontSize: '0.8rem', color: '#065F46', fontWeight: 600, marginBottom: '0.35rem' }}>
+          <div style={{ display: 'inline-flex', alignItems: 'center', gap: '0.4rem', fontSize: '0.8rem', color: 'var(--color-success)', fontWeight: 600, marginBottom: '0.35rem' }}>
             <ShieldCheck size={15} />
             ABES Verified Achievement Passport
           </div>

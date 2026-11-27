@@ -29,12 +29,16 @@ function resolveReportDepartmentScope(req, res) {
   return { blocked: false, departmentId: requested };
 }
 
-function buildSectionSummary(records) {
+function buildSectionSummary(records, entityKey = null) {
   const byCategory = {};
   const byLevel = {};
+  const uniqueEntities = new Set();
   let totalScore = 0;
 
   for (const r of records) {
+    if (entityKey && r[entityKey]) {
+      uniqueEntities.add(r[entityKey]);
+    }
     const score = Number(r.computed_score || 0);
     totalScore = Number((totalScore + score).toFixed(2));
 
@@ -55,6 +59,7 @@ function buildSectionSummary(records) {
 
   return {
     verified_count: records.length,
+    unique_verified_entities: uniqueEntities.size,
     total_verified_score: totalScore,
     category_breakdown: Object.values(byCategory).sort((a, b) => b.count - a.count),
     level_breakdown: Object.values(byLevel).sort((a, b) => b.count - a.count)
@@ -83,6 +88,7 @@ router.get('/department', authenticate, requireHODOrAbove(), async (req, res, ne
     const records = await query
       .select(
         'a.id',
+        'a.department_id',
         'a.title',
         'a.organization',
         'a.achieved_on',
@@ -103,7 +109,7 @@ router.get('/department', authenticate, requireHODOrAbove(), async (req, res, ne
       department_id: scopedDeptId || 'all',
       generated_at: new Date().toISOString(),
       verified_only: true,
-      summary: buildSectionSummary(records),
+      summary: buildSectionSummary(records, 'department_id'),
       records
     });
   } catch (error) {
@@ -140,6 +146,7 @@ router.get('/faculty', authenticate, requireFacultyOrAbove(), async (req, res, n
     const records = await query
       .select(
         'a.id',
+        'a.owner_user_id',
         'a.title',
         'a.organization',
         'a.achieved_on',
@@ -161,7 +168,7 @@ router.get('/faculty', authenticate, requireFacultyOrAbove(), async (req, res, n
       academic_year: academic_year || 'all',
       generated_at: new Date().toISOString(),
       verified_only: true,
-      summary: buildSectionSummary(records),
+      summary: buildSectionSummary(records, 'owner_user_id'),
       records
     });
   } catch (error) {
@@ -198,6 +205,7 @@ router.get('/student', authenticate, requireAuthenticated(), async (req, res, ne
     const records = await query
       .select(
         'a.id',
+        'a.owner_user_id',
         'a.title',
         'a.organization',
         'a.achieved_on',
@@ -219,7 +227,7 @@ router.get('/student', authenticate, requireAuthenticated(), async (req, res, ne
       academic_year: academic_year || 'all',
       generated_at: new Date().toISOString(),
       verified_only: true,
-      summary: buildSectionSummary(records),
+      summary: buildSectionSummary(records, 'owner_user_id'),
       records
     });
   } catch (error) {
@@ -236,19 +244,19 @@ router.get('/college-consolidated', authenticate, requireSuperAdmin(), async (re
   try {
     const { academic_year } = req.query;
 
-    const loadDomain = async (table, catTable) => {
+    const loadDomain = async (table, catTable, entityCol) => {
       const q = db(`${table} as a`)
         .join(`${catTable} as c`, 'a.category_id', 'c.id')
         .where('a.workflow_status', WORKFLOW_STATUSES.COLLEGE_APPROVED);
       if (academic_year) q.where('a.academic_year', String(academic_year));
-      const rows = await q.select('a.achievement_level', 'a.computed_score', 'c.name as category_name');
-      return buildSectionSummary(rows);
+      const rows = await q.select('a.achievement_level', 'a.computed_score', `a.${entityCol}`, 'c.name as category_name');
+      return buildSectionSummary(rows, entityCol);
     };
 
     const [departmentSection, facultySection, studentSection] = await Promise.all([
-      loadDomain('dept_achievements', 'dept_categories'),
-      loadDomain('faculty_achievements', 'faculty_categories'),
-      loadDomain('student_achievements', 'student_categories')
+      loadDomain('dept_achievements', 'dept_categories', 'department_id'),
+      loadDomain('faculty_achievements', 'faculty_categories', 'owner_user_id'),
+      loadDomain('student_achievements', 'student_categories', 'owner_user_id')
     ]);
 
     return sendSuccess(res, {

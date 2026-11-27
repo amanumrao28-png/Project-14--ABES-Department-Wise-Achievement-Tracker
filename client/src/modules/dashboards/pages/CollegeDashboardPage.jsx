@@ -17,17 +17,17 @@ import { LineChart } from '../../../shared/components/charts/LineChart.jsx';
 const TAB_CONFIG = {
   department: {
     label: 'Department Analytics',
-    color: '#1d4ed8',
+    color: 'var(--chart-6)',
     detailBase: '/college/department-tracker'
   },
   faculty: {
     label: 'Faculty Analytics',
-    color: '#047857',
+    color: 'var(--chart-1)',
     detailBase: '/college/faculty-tracker'
   },
   student: {
     label: 'Student Analytics',
-    color: '#d97706',
+    color: 'var(--chart-2)',
     detailBase: '/college/student-tracker'
   }
 };
@@ -120,16 +120,16 @@ export function CollegeDashboardPage() {
 
   return (
     <div>
-      <div className="page-header">
-        <div>
+      <div className="page-header" style={{ alignItems: 'center' }}>
+        <div style={{ flex: '1 1 420px', minWidth: 0 }}>
           <h1 className="page-title">College Dashboard</h1>
-          <p className="page-subtitle">
+          <p className="page-subtitle" style={{ maxWidth: 660 }}>
             Welcome, {user?.full_name}. Independent institutional analytics across Department,
             Faculty, and Student trackers. Scores are never combined.
           </p>
         </div>
 
-        <div className="table-actions">
+        <div className="table-actions" style={{ flexShrink: 0 }}>
           <Link to="/college/users" className="btn btn-primary">
             <Users size={16} />
             <span>Manage Users</span>
@@ -143,19 +143,19 @@ export function CollegeDashboardPage() {
 
       {/* Top Independent KPI Summary */}
       <div className="kpi-grid">
-        <div className="kpi-card">
+        <div className="kpi-card is-forest">
           <div className="kpi-label">
             <span>Total Departments</span>
-            <Building2 size={16} color="var(--color-primary)" />
+            <span className="kpi-icon-chip"><Building2 size={15} /></span>
           </div>
           <div className="kpi-value">{departments.length}</div>
           <div className="kpi-note">{totalPending} total pending approvals across trackers</div>
         </div>
 
-        <div className="kpi-card">
+        <div className="kpi-card is-sage">
           <div className="kpi-label">
             <span>Department Achievements</span>
-            <Building2 size={16} color="var(--color-primary)" />
+            <span className="kpi-icon-chip"><Building2 size={15} color="var(--color-forest-900)" /></span>
           </div>
           <div className="kpi-value">{deptSummary?.total_count ?? 0}</div>
           <div className="kpi-note">
@@ -167,7 +167,7 @@ export function CollegeDashboardPage() {
         <div className="kpi-card">
           <div className="kpi-label">
             <span>Faculty Achievements</span>
-            <Award size={16} color="var(--color-success)" />
+            <span className="kpi-icon-chip"><Award size={15} color="var(--color-success)" /></span>
           </div>
           <div className="kpi-value">{facultySummary?.total_count ?? 0}</div>
           <div className="kpi-note">
@@ -179,7 +179,7 @@ export function CollegeDashboardPage() {
         <div className="kpi-card">
           <div className="kpi-label">
             <span>Student Achievements</span>
-            <GraduationCap size={16} color="var(--color-warning)" />
+            <span className="kpi-icon-chip"><GraduationCap size={15} color="var(--color-warning)" /></span>
           </div>
           <div className="kpi-value">{studentSummary?.total_count ?? 0}</div>
           <div className="kpi-note">

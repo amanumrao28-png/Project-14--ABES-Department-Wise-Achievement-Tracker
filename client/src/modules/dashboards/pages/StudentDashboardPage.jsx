@@ -79,10 +79,10 @@ export function StudentDashboardPage() {
       </div>
 
       <div className="kpi-grid">
-        <div className="kpi-card">
+        <div className="kpi-card is-forest">
           <div className="kpi-label">
             <span>My Achievements</span>
-            <GraduationCap size={16} color="var(--color-warning)" />
+            <span className="kpi-icon-chip"><GraduationCap size={15} /></span>
           </div>
           <div className="kpi-value">{summary?.total_count ?? 0}</div>
           <div className="kpi-note">
@@ -90,10 +90,10 @@ export function StudentDashboardPage() {
           </div>
         </div>
 
-        <div className="kpi-card">
+        <div className="kpi-card is-sage">
           <div className="kpi-label">
             <span>My Competitions</span>
-            <Trophy size={16} color="var(--color-primary)" />
+            <span className="kpi-icon-chip"><Trophy size={15} color="var(--color-gold-600)" /></span>
           </div>
           <div className="kpi-value">{summary?.competitions_count ?? 0}</div>
           <div className="kpi-note">
@@ -104,7 +104,7 @@ export function StudentDashboardPage() {
         <div className="kpi-card">
           <div className="kpi-label">
             <span>My Internships</span>
-            <Briefcase size={16} color="var(--color-success)" />
+            <span className="kpi-icon-chip"><Briefcase size={15} color="var(--color-success)" /></span>
           </div>
           <div className="kpi-value">{summary?.internships_count ?? 0}</div>
           <div className="kpi-note">
@@ -115,7 +115,7 @@ export function StudentDashboardPage() {
         <div className="kpi-card">
           <div className="kpi-label">
             <span>My Placements</span>
-            <ShieldCheck size={16} color="var(--color-primary)" />
+            <span className="kpi-icon-chip"><ShieldCheck size={15} color="var(--color-accent)" /></span>
           </div>
           <div className="kpi-value">{summary?.placements_count ?? 0}</div>
           <div className="kpi-note">
@@ -155,7 +155,7 @@ export function StudentDashboardPage() {
               label: c.category_name,
               value: c.total_count
             }))}
-            color="#d97706"
+            color="var(--chart-2)"
           />
         </ChartCard>
       </div>
@@ -173,7 +173,7 @@ export function StudentDashboardPage() {
               label: m.month,
               value: m.total_count
             }))}
-            color="#d97706"
+            color="var(--chart-2)"
           />
         </ChartCard>
 
@@ -184,7 +184,7 @@ export function StudentDashboardPage() {
           error={error}
           isEmpty={!summary?.total_count}
         >
-          <CalendarHeatmap data={studentData?.calendar_heatmap || []} accent="#d97706" />
+          <CalendarHeatmap data={studentData?.calendar_heatmap || []} accent="var(--chart-2)" />
         </ChartCard>
       </div>
 
@@ -226,19 +226,22 @@ export function StudentDashboardPage() {
           isEmpty={!studentData?.my_certificates?.length}
           emptyMessage="No certificates uploaded yet."
         >
-          <div className="evidence-list">
+          <div className="cert-gallery-grid">
             {(studentData?.my_certificates || []).map((doc) => (
-              <div key={doc.id} className="evidence-item">
-                <div style={{ display: 'flex', alignItems: 'center', gap: 8, minWidth: 0 }}>
-                  <FileText size={16} color="var(--color-primary)" />
+              <div key={doc.id} className="cert-preview-card">
+                <div style={{ display: 'flex', alignItems: 'flex-start', gap: 10, minWidth: 0 }}>
+                  <span className="kpi-icon-chip"><FileText size={15} /></span>
                   <div style={{ minWidth: 0 }}>
-                    <div style={{ fontWeight: 600, fontSize: 13 }}>{doc.original_filename}</div>
+                    <div style={{ fontWeight: 600, fontSize: 13, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+                      {doc.original_filename}
+                    </div>
                     <div className="form-hint">{doc.achievement_title}</div>
                   </div>
                 </div>
                 <button
                   type="button"
                   className="btn btn-secondary btn-sm"
+                  style={{ alignSelf: 'flex-start' }}
                   onClick={() =>
                     studentTrackerApi.downloadDocument(
                       doc.achievement_id,

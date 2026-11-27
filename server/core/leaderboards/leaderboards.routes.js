@@ -2,7 +2,7 @@ import { Router } from 'express';
 import db from '../../config/database.js';
 import { ROLES, WORKFLOW_STATUSES } from '../../config/env.js';
 import { authenticate } from '../middleware/authenticate.js';
-import { requireFacultyOrAbove, requireHODOrAbove } from '../middleware/authorize.js';
+import { requireAuthenticated, requireFacultyOrAbove, requireHODOrAbove } from '../middleware/authorize.js';
 import { sendError, sendSuccess } from '../utils/response.js';
 
 const router = Router();
@@ -31,7 +31,10 @@ function resolveScopedDepartment(req, res) {
  */
 router.get('/departments', authenticate, requireHODOrAbove(), async (req, res, next) => {
   try {
-    const { academic_year } = req.query;
+    const { academic_year, category_id } = req.query;
+    if (category_id && !UUID_REGEX.test(String(category_id))) {
+      return sendError(res, 400, 'INVALID_ID', 'Invalid category ID format.');
+    }
     const scope = resolveScopedDepartment(req, res);
     if (scope.blocked) return undefined;
 
@@ -44,6 +47,9 @@ router.get('/departments', authenticate, requireHODOrAbove(), async (req, res, n
         );
         if (academic_year) {
           this.andOnVal('a.academic_year', '=', String(academic_year));
+        }
+        if (category_id) {
+          this.andOnVal('a.category_id', '=', String(category_id));
         }
       })
       .where('d.is_active', true);
@@ -88,7 +94,10 @@ router.get('/departments', authenticate, requireHODOrAbove(), async (req, res, n
  */
 router.get('/faculty', authenticate, requireFacultyOrAbove(), async (req, res, next) => {
   try {
-    const { academic_year } = req.query;
+    const { academic_year, category_id } = req.query;
+    if (category_id && !UUID_REGEX.test(String(category_id))) {
+      return sendError(res, 400, 'INVALID_ID', 'Invalid category ID format.');
+    }
     const scope = resolveScopedDepartment(req, res);
     if (scope.blocked) return undefined;
     const scopedDeptId = scope.departmentId;
@@ -103,6 +112,9 @@ router.get('/faculty', authenticate, requireFacultyOrAbove(), async (req, res, n
         );
         if (academic_year) {
           this.andOnVal('a.academic_year', '=', String(academic_year));
+        }
+        if (category_id) {
+          this.andOnVal('a.category_id', '=', String(category_id));
         }
       })
       .where('u.role', ROLES.FACULTY)
@@ -151,9 +163,12 @@ router.get('/faculty', authenticate, requireFacultyOrAbove(), async (req, res, n
  * Independent Student Leaderboard using ONLY verified (college_approved) student achievements.
  * Never combines scores from department or faculty trackers.
  */
-router.get('/students', authenticate, requireFacultyOrAbove(), async (req, res, next) => {
+router.get('/students', authenticate, requireAuthenticated(), async (req, res, next) => {
   try {
-    const { academic_year } = req.query;
+    const { academic_year, category_id } = req.query;
+    if (category_id && !UUID_REGEX.test(String(category_id))) {
+      return sendError(res, 400, 'INVALID_ID', 'Invalid category ID format.');
+    }
     const scope = resolveScopedDepartment(req, res);
     if (scope.blocked) return undefined;
     const scopedDeptId = scope.departmentId;
@@ -168,6 +183,9 @@ router.get('/students', authenticate, requireFacultyOrAbove(), async (req, res, 
         );
         if (academic_year) {
           this.andOnVal('a.academic_year', '=', String(academic_year));
+        }
+        if (category_id) {
+          this.andOnVal('a.category_id', '=', String(category_id));
         }
       })
       .where('u.role', ROLES.STUDENT)

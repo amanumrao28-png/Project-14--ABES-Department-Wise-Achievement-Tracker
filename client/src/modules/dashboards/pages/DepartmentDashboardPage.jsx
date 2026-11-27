@@ -124,7 +124,7 @@ export function DepartmentDashboardPage() {
         ? '/department/faculty-tracker'
         : '/department/student-tracker';
   const accent =
-    activeTab === 'department' ? '#1d4ed8' : activeTab === 'faculty' ? '#047857' : '#d97706';
+    activeTab === 'department' ? 'var(--chart-6)' : activeTab === 'faculty' ? 'var(--chart-1)' : 'var(--chart-2)';
 
   const deptSummary = analytics.department?.summary;
   const facultySummary = analytics.faculty?.summary;
@@ -153,11 +153,11 @@ export function DepartmentDashboardPage() {
         </div>
       </div>
 
-      <div className="kpi-grid">
-        <div className="kpi-card">
+      <div className="summary-strip">
+        <div className="summary-strip-cell is-highlight">
           <div className="kpi-label">
             <span>Department Achievements</span>
-            <Building2 size={16} color="var(--color-primary)" />
+            <Building2 size={15} />
           </div>
           <div className="kpi-value">{deptSummary?.total_count ?? 0}</div>
           <div className="kpi-note">
@@ -165,10 +165,10 @@ export function DepartmentDashboardPage() {
           </div>
         </div>
 
-        <div className="kpi-card">
+        <div className="summary-strip-cell">
           <div className="kpi-label">
             <span>Dept Faculty Overview</span>
-            <Award size={16} color="var(--color-success)" />
+            <Award size={15} color="var(--color-success)" />
           </div>
           <div className="kpi-value">{facultySummary?.total_count ?? 0}</div>
           <div className="kpi-note">
@@ -177,10 +177,10 @@ export function DepartmentDashboardPage() {
           </div>
         </div>
 
-        <div className="kpi-card">
+        <div className="summary-strip-cell">
           <div className="kpi-label">
             <span>Dept Student Overview</span>
-            <GraduationCap size={16} color="var(--color-warning)" />
+            <GraduationCap size={15} color="var(--color-warning)" />
           </div>
           <div className="kpi-value">{studentSummary?.total_count ?? 0}</div>
           <div className="kpi-note">
@@ -189,10 +189,10 @@ export function DepartmentDashboardPage() {
           </div>
         </div>
 
-        <div className="kpi-card">
+        <div className="summary-strip-cell">
           <div className="kpi-label">
             <span>Department Reports</span>
-            <Download size={16} color="var(--color-primary)" />
+            <Download size={15} color="var(--color-accent)" />
           </div>
           <div className="table-actions" style={{ marginTop: 10 }}>
             <button

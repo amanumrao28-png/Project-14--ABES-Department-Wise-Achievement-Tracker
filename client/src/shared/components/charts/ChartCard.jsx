@@ -22,8 +22,11 @@ export function ChartCard({
       <div className="card-body">
         {loading ? (
           <div className="chart-skeleton" role="status" aria-label={`Loading ${title}`}>
-            <div className="spinner" />
-            <span>Loading analytics...</span>
+            <div className="skeleton-stack">
+              <div className="skeleton-line is-short" />
+              <div className="skeleton-block" />
+              <div className="skeleton-line" />
+            </div>
           </div>
         ) : error ? (
           <div className="alert alert-error" style={{ marginBottom: 0 }}>

@@ -22,15 +22,15 @@ export function AuthBrandLayout({ children }) {
 
           <div className="auth-pillars">
             <div className="auth-pillar-item">
-              <Layers size={18} color="#60A5FA" />
+              <Layers size={18} />
               <span>Independent Department, Faculty &amp; Student achievement workflows</span>
             </div>
             <div className="auth-pillar-item">
-              <ShieldCheck size={18} color="#60A5FA" />
+              <ShieldCheck size={18} />
               <span>Department-isolated RBAC across Super Admin, HOD, Faculty &amp; Student</span>
             </div>
             <div className="auth-pillar-item">
-              <Lock size={18} color="#60A5FA" />
+              <Lock size={18} />
               <span>Rotating token sessions, rate limiting &amp; immutable audit trails</span>
             </div>
           </div>

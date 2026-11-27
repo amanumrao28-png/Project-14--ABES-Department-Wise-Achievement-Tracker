@@ -74,6 +74,7 @@ export async function seed(knex) {
       employee_or_roll_no: 'ABES-CS-FAC-001',
       full_name: 'Prof. CS Faculty Member',
       role: 'faculty',
+      can_coordinate_student_approvals: true,
       password_hash: bcrypt.hashSync('Faculty@123', BCRYPT_ROUNDS),
       is_active: true,
     },

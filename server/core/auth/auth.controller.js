@@ -1,7 +1,18 @@
 import { AuthService } from './auth.service.js';
 import { auditLog } from '../audit/audit.service.js';
 import { sendSuccess, sendError } from '../utils/response.js';
+import { ROLES } from '../../config/env.js';
 import db from '../../config/database.js';
+
+/**
+ * Verifies whether a user's authenticated role is permitted to sign into the target portal.
+ * Super Admin is permitted across all four portals; all other roles are strictly locked to their own portal.
+ */
+export function isRoleAllowedOnPortal(role, portal) {
+  if (!portal) return true;
+  if (role === ROLES.SUPER_ADMIN) return true;
+  return role === portal;
+}
 
 /**
  * POST /login
@@ -9,8 +20,31 @@ import db from '../../config/database.js';
  */
 export async function login(req, res, next) {
   try {
-    const { email, password } = req.body;
+    const { email, password, portal } = req.body;
     const result = await AuthService.login(email, password);
+
+    if (portal && !isRoleAllowedOnPortal(result.user.role, portal)) {
+      auditLog({
+        actorUserId: result.user.id,
+        actorRole: result.user.role,
+        actorDepartmentId: result.user.department_id,
+        action: 'PORTAL_LOGIN_DENIED',
+        entityType: 'user',
+        entityId: result.user.id,
+        targetDepartmentId: result.user.department_id,
+        afterState: { attempted_portal: portal },
+        ipAddress: req.ip,
+        userAgent: req.get('user-agent'),
+        requestId: req.requestId
+      });
+
+      return sendError(
+        res,
+        403,
+        'PORTAL_ACCESS_DENIED',
+        `Your account role (${result.user.role}) is not authorized to sign into the ${portal} portal.`
+      );
+    }
 
     auditLog({
       actorUserId: result.user.id,

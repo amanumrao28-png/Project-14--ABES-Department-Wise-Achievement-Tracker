@@ -92,8 +92,9 @@ export default function InsightsPage() {
             fontSize: '0.78rem',
             padding: '0.35rem 0.7rem',
             borderRadius: '999px',
-            backgroundColor: '#EFF6FF',
-            color: '#1D4ED8',
+            backgroundColor: 'var(--color-accent-soft)',
+            color: 'var(--color-accent)',
+            border: '1px solid var(--color-success-border)',
             fontWeight: 600
           }}
         >

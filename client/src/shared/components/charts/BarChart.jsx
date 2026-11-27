@@ -2,7 +2,7 @@ export function BarChart({
   data = [],
   labelKey = 'label',
   valueKey = 'value',
-  color = '#2563EB',
+  color = 'var(--chart-1)',
   height = 230
 }) {
   if (!data.length) return null;
@@ -26,8 +26,8 @@ export function BarChart({
           const label = Math.round(maxVal * tick);
           return (
             <g key={tick}>
-              <line x1={padLeft} y1={y} x2={width - padRight} y2={y} stroke="#e2e8f0" strokeDasharray="3 3" />
-              <text x={padLeft - 6} y={y + 4} textAnchor="end" fontSize="10" fill="#64748b">
+              <line x1={padLeft} y1={y} x2={width - padRight} y2={y} stroke="var(--chart-grid)" strokeDasharray="3 3" />
+              <text x={padLeft - 6} y={y + 4} textAnchor="end" fontSize="10" fill="var(--chart-axis)">
                 {label}
               </text>
             </g>
@@ -61,7 +61,7 @@ export function BarChart({
                 textAnchor="middle"
                 fontSize="10"
                 fontWeight="600"
-                fill="#0f172a"
+                fill="var(--color-text)"
               >
                 {val}
               </text>
@@ -70,7 +70,7 @@ export function BarChart({
                 y={height - 14}
                 textAnchor="middle"
                 fontSize="10"
-                fill="#475569"
+                fill="var(--chart-axis)"
               >
                 {shortLabel}
               </text>

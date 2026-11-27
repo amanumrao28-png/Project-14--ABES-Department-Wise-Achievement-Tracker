@@ -34,3 +34,16 @@
 1. **PostgreSQL Instance & `.env` Configuration:** Create `server/.env` from `server/.env.example`, start PostgreSQL, and execute `npm run migrate` and `npm run seed` in `server/`.
 2. **Live Database End-to-End Integration Execution:** Execute live login, CRUD, file upload, workflow transition, and UI browser smoke tests against the seeded PostgreSQL database once `.env` and PostgreSQL credentials are provisioned.
 3. **Optional Future Enhancements:** Integrate an external/local OCR engine (e.g., Tesseract worker) for scanned image-only certificates without embedded PDF text streams.
+
+
+---
+
+## Multi-Portal Restructuring (4 Independent Role-Based Portals)
+
+- **Architecture:** Split the frontend into 4 independent Vite/React applications under npm workspaces (`apps/student-portal` on `:5173`, `apps/faculty-portal` on `:5174`, `apps/hod-portal` on `:5175`, `apps/super-admin-portal` on `:5176`) sharing common primitives in `shared/`, all backed by the single Express API (`server/` on `:5000`) and single PostgreSQL database (`docker-compose.yml` on `:5432`).
+- **Backend Portal Isolation:** Added optional `portal` parameter to `POST /api/v1/auth/login` (`server/core/auth/auth.validators.js` & `server/core/auth/auth.controller.js`) enforcing `isRoleAllowedOnPortal(role, portal)` (HTTP `403 PORTAL_ACCESS_DENIED` + `PORTAL_LOGIN_DENIED` audit log for mismatched logins; `super_admin` permitted across all 4 portals), and updated `CORS_ORIGIN` for all 4 local origins.
+- **Verification:**
+  - `server`: `npm test` passed 30/30 security & unit tests (including `server/tests/security/portal_auth.test.js`).
+  - All 4 portal production builds (`apps/student-portal`, `apps/faculty-portal`, `apps/hod-portal`, `apps/super-admin-portal`) succeeded via `vite build`.
+  - Verified live 4x4 login matrix against `:5000` and browser UI verification across `:5173`, `:5174`, `:5175`, and `:5176`.
+- **Deployment Guide:** See [PORTALS_DEPLOYMENT_GUIDE.md](./PORTALS_DEPLOYMENT_GUIDE.md).

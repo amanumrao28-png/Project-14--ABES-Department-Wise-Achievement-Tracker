@@ -1,0 +1,266 @@
+.auth-shell {
+  min-height: 100vh;
+  display: grid;
+  grid-template-columns: 1.05fr 1fr;
+  background: var(--color-surface);
+}
+
+.auth-brand-panel {
+  background-color: var(--color-forest-950);
+  background-image:
+    radial-gradient(circle at 85% 15%, rgba(217, 164, 65, 0.12), transparent 45%),
+    radial-gradient(circle at 15% 85%, rgba(38, 115, 91, 0.22), transparent 50%),
+    linear-gradient(to right, rgba(143, 174, 155, 0.05) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(143, 174, 155, 0.05) 1px, transparent 1px);
+  background-size: auto, auto, 40px 40px, 40px 40px;
+  color: var(--color-text-inverse);
+  padding: 48px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  border-right: 1px solid rgba(143, 174, 155, 0.16);
+}
+
+.auth-brand-header {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.auth-brand-mark {
+  width: 44px;
+  height: 44px;
+  border-radius: var(--radius-sm);
+  background: var(--color-emerald-600);
+  border: 1px solid rgba(217, 164, 65, 0.45);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #FFFFFF;
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 16px;
+}
+
+.auth-brand-title {
+  font-family: var(--font-display);
+  font-size: 18px;
+  font-weight: 700;
+  color: #FFFFFF;
+  margin: 0;
+}
+
+.auth-brand-subtitle {
+  font-size: 12.5px;
+  color: var(--color-text-inverse-muted);
+  margin: 2px 0 0;
+}
+
+.auth-hero {
+  max-width: 460px;
+}
+
+.auth-hero h1 {
+  font-family: var(--font-display);
+  font-size: 32px;
+  line-height: 1.2;
+  letter-spacing: -0.025em;
+  color: #FFFFFF;
+  margin: 0 0 16px;
+  font-weight: 700;
+}
+
+.auth-hero p {
+  font-size: 15px;
+  color: var(--color-text-inverse-muted);
+  margin: 0 0 28px;
+}
+
+.auth-pillars {
+  display: grid;
+  gap: 12px;
+}
+
+.auth-pillar-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 16px;
+  border-radius: var(--radius-sm);
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(143, 174, 155, 0.16);
+  font-size: 13.5px;
+  color: var(--color-text-inverse);
+}
+
+.auth-pillar-item svg {
+  color: var(--color-gold-500);
+  flex-shrink: 0;
+}
+
+.auth-brand-footer {
+  font-size: 12.5px;
+  color: var(--color-text-inverse-muted);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.auth-brand-footer a {
+  color: var(--color-gold-500);
+}
+
+.auth-form-panel {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 24px;
+  background: var(--color-background);
+}
+
+.auth-card {
+  width: 100%;
+  max-width: 430px;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: 36px;
+  box-shadow: var(--shadow-md);
+}
+
+.auth-card-title {
+  margin: 0 0 6px;
+  font-size: 24px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+.auth-card-subtitle {
+  margin: 0 0 24px;
+  color: var(--color-text-secondary);
+  font-size: 13.5px;
+}
+
+.auth-links-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 16px;
+  font-size: 13px;
+}
+
+/* Password Strength Meter */
+.pw-meter {
+  margin-top: 8px;
+  padding: 10px 12px;
+  background: var(--color-background-sage);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+}
+
+.pw-meter-bar-track {
+  height: 4px;
+  border-radius: var(--radius-full);
+  background: var(--color-border);
+  overflow: hidden;
+  margin-bottom: 8px;
+}
+
+.pw-meter-bar-fill {
+  height: 100%;
+  transition: width var(--transition-base), background-color var(--transition-base);
+}
+
+.pw-rules-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 4px 10px;
+  font-size: 11.5px;
+}
+
+.pw-rule {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  color: var(--color-muted);
+}
+
+.pw-rule.passed {
+  color: var(--color-success);
+  font-weight: 600;
+}
+
+/* Status Error Pages (401 Unauthorized / 403 Access Denied) */
+.status-page {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  background: var(--color-background);
+}
+
+.status-card {
+  width: 100%;
+  max-width: 500px;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: 40px;
+  text-align: center;
+  box-shadow: var(--shadow-md);
+}
+
+.status-icon-wrap {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  margin: 0 auto 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.status-icon-wrap.is-401 {
+  background: var(--color-warning-bg);
+  color: var(--color-warning);
+  border: 1px solid var(--color-warning-border);
+}
+
+.status-icon-wrap.is-403 {
+  background: var(--color-danger-bg);
+  color: var(--color-danger);
+  border: 1px solid var(--color-danger-border);
+}
+
+.status-code-pill {
+  display: inline-block;
+  padding: 3px 10px;
+  border-radius: var(--radius-full);
+  background: var(--color-background-sage);
+  border: 1px solid var(--color-border);
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--color-text-secondary);
+  margin-bottom: 10px;
+}
+
+.status-actions {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  margin-top: 24px;
+  flex-wrap: wrap;
+}
+
+@media (max-width: 900px) {
+  .auth-shell {
+    grid-template-columns: 1fr;
+  }
+
+  .auth-brand-panel {
+    display: none;
+  }
+}

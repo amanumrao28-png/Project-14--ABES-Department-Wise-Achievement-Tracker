@@ -1,3 +1,4 @@
+import { Component } from 'react';
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
 import { AuthProvider, useAuth } from './core/auth/AuthContext.jsx';
 import { ProtectedRoute } from './core/auth/ProtectedRoute.jsx';
@@ -549,12 +550,49 @@ function AppRoutes() {
   );
 }
 
+class AppErrorBoundary extends Component {
+  constructor(props) {
+    super(props);
+    this.state = { hasError: false, message: '' };
+  }
+
+  static getDerivedStateFromError(error) {
+    return { hasError: true, message: error?.message || 'An unexpected UI error occurred.' };
+  }
+
+  render() {
+    if (this.state.hasError) {
+      return (
+        <div className="status-page">
+          <div className="status-card">
+            <span className="status-code-pill">UI Recovery</span>
+            <h1 className="page-title" style={{ fontSize: 22 }}>Something went wrong</h1>
+            <p className="page-subtitle" style={{ marginTop: 8 }}>{this.state.message}</p>
+            <div className="status-actions">
+              <button
+                type="button"
+                className="btn btn-primary"
+                onClick={() => window.location.assign('/')}
+              >
+                Reload Application
+              </button>
+            </div>
+          </div>
+        </div>
+      );
+    }
+    return this.props.children;
+  }
+}
+
 export default function App() {
   return (
-    <BrowserRouter>
-      <AuthProvider>
-        <AppRoutes />
-      </AuthProvider>
-    </BrowserRouter>
+    <AppErrorBoundary>
+      <BrowserRouter>
+        <AuthProvider>
+          <AppRoutes />
+        </AuthProvider>
+      </BrowserRouter>
+    </AppErrorBoundary>
   );
 }

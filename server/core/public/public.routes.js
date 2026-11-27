@@ -44,12 +44,13 @@ router.get('/showcase', async (req, res, next) => {
           'dept_achievements.achievement_level',
           'dept_achievements.academic_year',
           'dept_achievements.achieved_on',
+          'dept_achievements.approved_at',
           'dept_categories.name as category_name',
           'departments.code as department_code',
           'departments.name as department_name'
         )
         .orderBy('dept_achievements.approved_at', 'desc')
-        .limit(3),
+        .limit(4),
       db('faculty_achievements')
         .leftJoin('faculty_categories', 'faculty_achievements.category_id', 'faculty_categories.id')
         .leftJoin('departments', 'faculty_achievements.department_id', 'departments.id')
@@ -61,12 +62,13 @@ router.get('/showcase', async (req, res, next) => {
           'faculty_achievements.achievement_level',
           'faculty_achievements.academic_year',
           'faculty_achievements.achieved_on',
+          'faculty_achievements.approved_at',
           'faculty_categories.name as category_name',
           'departments.code as department_code',
           'departments.name as department_name'
         )
         .orderBy('faculty_achievements.approved_at', 'desc')
-        .limit(3),
+        .limit(4),
       db('student_achievements')
         .leftJoin('student_categories', 'student_achievements.category_id', 'student_categories.id')
         .leftJoin('departments', 'student_achievements.department_id', 'departments.id')
@@ -78,19 +80,22 @@ router.get('/showcase', async (req, res, next) => {
           'student_achievements.achievement_level',
           'student_achievements.academic_year',
           'student_achievements.achieved_on',
+          'student_achievements.approved_at',
           'student_categories.name as category_name',
           'departments.code as department_code',
           'departments.name as department_name'
         )
         .orderBy('student_achievements.approved_at', 'desc')
-        .limit(3)
+        .limit(4)
     ]);
 
     const highlights = [
       ...deptHighlights.map((r) => ({ ...r, tracker_domain: 'Department' })),
       ...facultyHighlights.map((r) => ({ ...r, tracker_domain: 'Faculty' })),
       ...studentHighlights.map((r) => ({ ...r, tracker_domain: 'Student' }))
-    ].slice(0, 6);
+    ]
+      .sort((a, b) => new Date(b.approved_at || 0) - new Date(a.approved_at || 0))
+      .slice(0, 4);
 
     return sendSuccess(res, {
       departments,

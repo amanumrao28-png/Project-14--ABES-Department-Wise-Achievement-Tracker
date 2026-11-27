@@ -72,24 +72,30 @@ export function CertificateOcrUpload({ onFieldsExtracted }) {
         </button>
       </div>
 
-      <div style={{ display: 'flex', gap: '0.75rem', alignItems: 'center', marginTop: '0.85rem', flexWrap: 'wrap' }}>
+      <div className="file-dropzone" style={{ marginTop: '0.85rem' }}>
         <input
           type="file"
+          className="form-input"
+          style={{ width: 'auto', flex: '1 1 220px' }}
           accept=".pdf,.png,.jpg,.jpeg,.webp"
           onChange={(e) => setFile(e.target.files?.[0] || null)}
-          style={{ fontSize: '0.85rem' }}
         />
         <button
           type="button"
           className="btn btn-primary"
           disabled={loading}
           onClick={handleExtract}
-          style={{ display: 'inline-flex', alignItems: 'center', gap: '0.4rem' }}
         >
           <FileSearch size={15} />
-          {loading ? 'Extracting...' : 'Extract & Pre-fill'}
+          <span>{loading ? 'Extracting...' : 'Extract & Pre-fill'}</span>
         </button>
       </div>
+
+      {loading && (
+        <div className="upload-progress-track" role="progressbar" aria-label="Extracting certificate text">
+          <div className="upload-progress-fill" />
+        </div>
+      )}
 
       {showTextBox && (
         <textarea

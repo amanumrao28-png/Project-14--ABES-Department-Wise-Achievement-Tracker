@@ -3,7 +3,8 @@ import { commonSchemas } from '../middleware/validate.js';
 
 export const loginSchema = Joi.object({
   email: commonSchemas.email.required(),
-  password: Joi.string().required()
+  password: Joi.string().required(),
+  portal: Joi.string().valid('student', 'faculty', 'hod', 'super_admin').optional()
 });
 
 export const refreshSchema = Joi.object({

@@ -2,7 +2,7 @@ export function LineChart({
   data = [],
   labelKey = 'label',
   valueKey = 'value',
-  color = '#16A34A',
+  color = 'var(--chart-1)',
   height = 220
 }) {
   if (!data.length) return null;
@@ -40,8 +40,8 @@ export function LineChart({
           const label = Math.round(maxVal * tick);
           return (
             <g key={tick}>
-              <line x1={padLeft} y1={y} x2={width - padRight} y2={y} stroke="#e2e8f0" strokeDasharray="3 3" />
-              <text x={padLeft - 6} y={y + 4} textAnchor="end" fontSize="10" fill="#64748b">
+              <line x1={padLeft} y1={y} x2={width - padRight} y2={y} stroke="var(--chart-grid)" strokeDasharray="3 3" />
+              <text x={padLeft - 6} y={y + 4} textAnchor="end" fontSize="10" fill="var(--chart-axis)">
                 {label}
               </text>
             </g>
@@ -70,7 +70,7 @@ export function LineChart({
                 <title>{`${pt.label}: ${pt.val}`}</title>
               </circle>
               {showLabel && (
-                <text x={pt.x} y={height - 12} textAnchor="middle" fontSize="10" fill="#475569">
+                <text x={pt.x} y={height - 12} textAnchor="middle" fontSize="10" fill="var(--chart-axis)">
                   {pt.label}
                 </text>
               )}

@@ -26,7 +26,7 @@ async function shutdown(signal, exitCode = 0) {
   forceExitTimer.unref();
 
   try {
-    if (server) {
+    if (server && server.listening) {
       await new Promise((resolve, reject) => {
         server.close((err) => (err ? reject(err) : resolve()));
       });

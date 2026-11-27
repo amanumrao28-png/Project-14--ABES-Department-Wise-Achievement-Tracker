@@ -1,7 +1,7 @@
 /**
  * 26-week (182-day) daily activity calendar heatmap using actual achievement dates.
  */
-export function CalendarHeatmap({ data = [], accent = '#2563EB' }) {
+export function CalendarHeatmap({ data = [], accent = 'var(--chart-1)' }) {
   const countByDate = Object.fromEntries(
     data.map((d) => [d.date, Number(d.count || 0)])
   );
@@ -49,8 +49,8 @@ export function CalendarHeatmap({ data = [], accent = '#2563EB' }) {
                     className="heatmap-cell"
                     title={`${cell.date}: ${cell.count} achievement(s)`}
                     style={{
-                      backgroundColor: opacity === 0 ? '#e2e8f0' : accent,
-                      opacity: opacity === 0 ? 0.55 : opacity
+                      backgroundColor: opacity === 0 ? 'var(--color-surface-subtle)' : accent,
+                      opacity: opacity === 0 ? 0.75 : opacity
                     }}
                   />
                 );
@@ -69,8 +69,8 @@ export function CalendarHeatmap({ data = [], accent = '#2563EB' }) {
               key={lvl}
               className="heatmap-cell"
               style={{
-                backgroundColor: lvl === 0 ? '#e2e8f0' : accent,
-                opacity: lvl === 0 ? 0.55 : lvl
+                backgroundColor: lvl === 0 ? 'var(--color-surface-subtle)' : accent,
+                opacity: lvl === 0 ? 0.75 : lvl
               }}
             />
           ))}

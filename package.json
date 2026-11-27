@@ -1,0 +1,16 @@
+{
+  "name": "abes-achievement-tracker-monorepo",
+  "version": "1.0.0",
+  "private": true,
+  "workspaces": [
+    "apps/*"
+  ],
+  "scripts": {
+    "dev:student": "npm --workspace=apps/student-portal run dev",
+    "dev:faculty": "npm --workspace=apps/faculty-portal run dev",
+    "dev:hod": "npm --workspace=apps/hod-portal run dev",
+    "dev:admin": "npm --workspace=apps/super-admin-portal run dev",
+    "build:all": "npm --workspace=apps/student-portal run build && npm --workspace=apps/faculty-portal run build && npm --workspace=apps/hod-portal run build && npm --workspace=apps/super-admin-portal run build",
+    "test:server": "npm --prefix server test"
+  }
+}

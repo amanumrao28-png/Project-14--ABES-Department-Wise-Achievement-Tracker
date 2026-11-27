@@ -9,5 +9,7 @@ router.use(authenticate);
 router.get('/', notificationsController.listMyNotifications);
 router.patch('/:id/read', notificationsController.markNotificationRead);
 router.post('/read-all', notificationsController.markAllNotificationsRead);
+router.delete('/', notificationsController.clearAllNotifications);
+router.delete('/:id', notificationsController.deleteNotification);
 
 export default router;

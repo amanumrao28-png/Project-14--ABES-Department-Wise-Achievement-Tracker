@@ -93,6 +93,12 @@ export function EvidenceDocumentsPanel({
           </div>
         )}
 
+        {uploading && (
+          <div className="upload-progress-track" role="progressbar" aria-label="Uploading evidence file">
+            <div className="upload-progress-fill" />
+          </div>
+        )}
+
         {documents.length === 0 ? (
           <div className="form-hint">
             No evidence files attached yet.

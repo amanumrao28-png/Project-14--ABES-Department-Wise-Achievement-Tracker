@@ -90,29 +90,29 @@ export function FacultyDashboardPage() {
         </div>
       </div>
 
-      <div className="kpi-grid">
-        <div className="kpi-card">
+      <div className="summary-strip">
+        <div className="summary-strip-cell">
           <div className="kpi-label">
             <span>My Achievements</span>
-            <Award size={16} color="var(--color-success)" />
+            <Award size={15} color="var(--color-success)" />
           </div>
           <div className="kpi-value">{summary?.total_count ?? 0}</div>
           <div className="kpi-note">Personal Faculty Tracker submissions</div>
         </div>
 
-        <div className="kpi-card">
+        <div className="summary-strip-cell">
           <div className="kpi-label"><span>My Verified Achievements</span></div>
           <div className="kpi-value">{summary?.verified_count ?? 0}</div>
           <div className="kpi-note">College-approved records</div>
         </div>
 
-        <div className="kpi-card">
+        <div className="summary-strip-cell">
           <div className="kpi-label"><span>Pending Submissions</span></div>
           <div className="kpi-value">{summary?.pending_count ?? 0}</div>
           <div className="kpi-note">{summary?.changes_requested_count ?? 0} need changes</div>
         </div>
 
-        <div className="kpi-card">
+        <div className="summary-strip-cell is-highlight">
           <div className="kpi-label"><span>My Personal Score</span></div>
           <div className="kpi-value">{summary?.verified_score ?? 0}</div>
           <div className="kpi-note">Verified Faculty score only</div>
@@ -134,7 +134,7 @@ export function FacultyDashboardPage() {
               label: m.month,
               value: m.total_count
             }))}
-            color="#047857"
+            color="var(--chart-1)"
           />
         </ChartCard>
 
@@ -168,7 +168,7 @@ export function FacultyDashboardPage() {
               label: c.category_name,
               value: c.total_count
             }))}
-            color="#047857"
+            color="var(--chart-1)"
           />
         </ChartCard>
 
@@ -179,7 +179,7 @@ export function FacultyDashboardPage() {
           error={error}
           isEmpty={!summary?.total_count}
         >
-          <CalendarHeatmap data={facultyData?.calendar_heatmap || []} accent="#047857" />
+          <CalendarHeatmap data={facultyData?.calendar_heatmap || []} accent="var(--chart-1)" />
         </ChartCard>
       </div>
 
@@ -221,19 +221,22 @@ export function FacultyDashboardPage() {
           isEmpty={!facultyData?.my_certificates?.length}
           emptyMessage="No certificates uploaded yet."
         >
-          <div className="evidence-list">
+          <div className="cert-gallery-grid">
             {(facultyData?.my_certificates || []).map((doc) => (
-              <div key={doc.id} className="evidence-item">
-                <div style={{ display: 'flex', alignItems: 'center', gap: 8, minWidth: 0 }}>
-                  <FileText size={16} color="var(--color-primary)" />
+              <div key={doc.id} className="cert-preview-card">
+                <div style={{ display: 'flex', alignItems: 'flex-start', gap: 10, minWidth: 0 }}>
+                  <span className="kpi-icon-chip"><FileText size={15} /></span>
                   <div style={{ minWidth: 0 }}>
-                    <div style={{ fontWeight: 600, fontSize: 13 }}>{doc.original_filename}</div>
+                    <div style={{ fontWeight: 600, fontSize: 13, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+                      {doc.original_filename}
+                    </div>
                     <div className="form-hint">{doc.achievement_title}</div>
                   </div>
                 </div>
                 <button
                   type="button"
                   className="btn btn-secondary btn-sm"
+                  style={{ alignSelf: 'flex-start' }}
                   onClick={() =>
                     facultyTrackerApi.downloadDocument(
                       doc.achievement_id,

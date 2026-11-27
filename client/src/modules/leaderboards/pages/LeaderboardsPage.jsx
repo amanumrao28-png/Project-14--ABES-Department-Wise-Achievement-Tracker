@@ -4,6 +4,7 @@ import { useAuth } from '../../../core/auth/AuthContext.jsx';
 import { ROLES } from '../../../core/constants/roles.js';
 import { leaderboardsApi } from '../../../core/api/leaderboardsApi.js';
 import { departmentsApi } from '../../../core/api/departmentsApi.js';
+import { ACADEMIC_YEAR_OPTIONS } from '../../../shared/components/tracker/AchievementStatusBadge.jsx';
 
 export default function LeaderboardsPage() {
   const { user } = useAuth();
@@ -19,7 +20,7 @@ export default function LeaderboardsPage() {
 
   useEffect(() => {
     if (user?.role === ROLES.SUPER_ADMIN) {
-      departmentsApi.list().then((res) => setDepartments(res.items || res || [])).catch(() => {});
+      departmentsApi.listDepartments().then((res) => setDepartments(res?.items || res || [])).catch(() => {});
     }
   }, [user]);
 
@@ -73,8 +74,9 @@ export default function LeaderboardsPage() {
             fontSize: '0.78rem',
             padding: '0.35rem 0.7rem',
             borderRadius: '999px',
-            backgroundColor: '#ECFDF5',
-            color: '#065F46',
+            backgroundColor: 'var(--color-success-bg)',
+            color: 'var(--color-success)',
+            border: '1px solid var(--color-success-border)',
             fontWeight: 600
           }}
         >
@@ -83,54 +85,61 @@ export default function LeaderboardsPage() {
         </span>
       </div>
 
-      <div style={{ display: 'flex', gap: '0.5rem', marginBottom: '1.25rem', flexWrap: 'wrap', alignItems: 'center', justifyContent: 'space-between' }}>
-        <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap' }}>
+      <div style={{ display: 'flex', gap: '0.75rem', marginBottom: '1.25rem', flexWrap: 'wrap', alignItems: 'center', justifyContent: 'space-between' }}>
+        <div className="tab-strip" style={{ marginBottom: 0, borderBottom: 'none', paddingBottom: 0 }}>
           {canViewDepartments && (
             <button
               type="button"
-              className={`btn ${activeTab === 'departments' ? 'btn-primary' : 'btn-secondary'}`}
+              className={`tab-pill ${activeTab === 'departments' ? 'active' : ''}`}
               onClick={() => setActiveTab('departments')}
               style={{ display: 'inline-flex', alignItems: 'center', gap: '0.4rem' }}
             >
-              <Building2 size={16} />
+              <Building2 size={15} />
               Department Leaderboard
             </button>
           )}
           <button
             type="button"
-            className={`btn ${activeTab === 'faculty' ? 'btn-primary' : 'btn-secondary'}`}
+            className={`tab-pill ${activeTab === 'faculty' ? 'active' : ''}`}
             onClick={() => setActiveTab('faculty')}
             style={{ display: 'inline-flex', alignItems: 'center', gap: '0.4rem' }}
           >
-            <Award size={16} />
+            <Award size={15} />
             Faculty Leaderboard
           </button>
           <button
             type="button"
-            className={`btn ${activeTab === 'students' ? 'btn-primary' : 'btn-secondary'}`}
+            className={`tab-pill ${activeTab === 'students' ? 'active' : ''}`}
             onClick={() => setActiveTab('students')}
             style={{ display: 'inline-flex', alignItems: 'center', gap: '0.4rem' }}
           >
-            <GraduationCap size={16} />
+            <GraduationCap size={15} />
             Student Leaderboard
           </button>
         </div>
 
-        <div style={{ display: 'flex', gap: '0.5rem', alignItems: 'center' }}>
-          <input
-            type="text"
-            placeholder="Academic Year (e.g. 2024-25)"
+        <div style={{ display: 'flex', gap: '0.5rem', alignItems: 'center', flexWrap: 'wrap' }}>
+          <select
             value={academicYear}
             onChange={(e) => setAcademicYear(e.target.value)}
-            className="form-input"
-            style={{ width: '190px' }}
-          />
+            className="form-select"
+            aria-label="Filter leaderboard by academic year"
+            style={{ width: '175px' }}
+          >
+            <option value="">All Academic Years</option>
+            {ACADEMIC_YEAR_OPTIONS.map((ay) => (
+              <option key={ay} value={ay}>
+                AY {ay}
+              </option>
+            ))}
+          </select>
           {user?.role === ROLES.SUPER_ADMIN && activeTab !== 'departments' && (
             <select
               value={departmentId}
               onChange={(e) => setDepartmentId(e.target.value)}
-              className="form-input"
-              style={{ width: '190px' }}
+              className="form-select"
+              aria-label="Filter leaderboard by department"
+              style={{ width: '195px' }}
             >
               <option value="">All Departments</option>
               {departments.map((d) => (

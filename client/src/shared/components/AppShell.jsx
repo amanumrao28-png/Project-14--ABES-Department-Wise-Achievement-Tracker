@@ -330,10 +330,10 @@ export function AppShell({ children }) {
                 marginTop: 8,
                 padding: '0 6px',
                 fontSize: 11,
-                color: '#94A3B8'
+                color: 'var(--color-sage-300)'
               }}
             >
-              <ShieldCheck size={13} color="#60A5FA" />
+              <ShieldCheck size={13} color="var(--color-gold-500)" />
               <span>Strict Role Isolation Active</span>
             </div>
           )}
@@ -373,6 +373,8 @@ export function AppShell({ children }) {
               <div className="topbar-page-title">{pageHeading.title}</div>
             </div>
 
+            <span className="topbar-divider" aria-hidden="true" />
+
             <span className="dept-pill">
               <Building2 size={13} />
               {scopeLabel}
@@ -394,19 +396,27 @@ export function AppShell({ children }) {
               </form>
             )}
 
-            <select
-              className="topbar-ay-select"
-              aria-label="Academic year filter"
-              value={activeAcademicYear}
-              onChange={handleAcademicYearChange}
-            >
-              <option value="">All Academic Years</option>
-              {ACADEMIC_YEAR_OPTIONS.map((yr) => (
-                <option key={yr} value={yr}>
-                  AY {yr}
-                </option>
-              ))}
-            </select>
+            {(location.pathname.includes('dashboard') ||
+              location.pathname.includes('tracker') ||
+              location.pathname.includes('achievements') ||
+              location.pathname.includes('leaderboards') ||
+              location.pathname.includes('reports')) && (
+              <select
+                className="topbar-ay-select"
+                aria-label="Academic year filter"
+                value={activeAcademicYear}
+                onChange={handleAcademicYearChange}
+              >
+                <option value="">All Academic Years</option>
+                {ACADEMIC_YEAR_OPTIONS.map((yr) => (
+                  <option key={yr} value={yr}>
+                    AY {yr}
+                  </option>
+                ))}
+              </select>
+            )}
+
+            <span className="topbar-divider" aria-hidden="true" />
 
             <div ref={notifRef} style={{ position: 'relative' }}>
               <button
@@ -465,7 +475,7 @@ export function AppShell({ children }) {
             <div ref={profileRef} style={{ position: 'relative' }}>
               <button
                 type="button"
-                className="profile-trigger"
+                className="topbar-profile-btn"
                 aria-label="User profile menu"
                 aria-expanded={profileOpen}
                 onClick={() => {
@@ -473,11 +483,11 @@ export function AppShell({ children }) {
                   setProfileOpen((v) => !v);
                 }}
               >
-                <span className="profile-avatar-sm">{initials}</span>
-                <span style={{ fontSize: 13, fontWeight: 600, color: 'var(--color-text)' }}>
+                <span className="topbar-avatar-sm">{initials}</span>
+                <span className="topbar-profile-name">
                   {user?.full_name?.split(' ')[0] || 'Account'}
                 </span>
-                <ChevronDown size={14} color="#64748B" />
+                <ChevronDown size={14} color="var(--color-text-secondary)" />
               </button>
 
               {profileOpen && (

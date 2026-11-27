@@ -1,0 +1,126 @@
+:root {
+  /* =========================================================
+     ABES Achievement Tracker — Premium Natural Design System
+     ========================================================= */
+
+  /* 1. Brand & Botanical Core */
+  --color-forest-950: #0F2B24;
+  --color-forest-900: #173F35;
+  --color-forest-800: #1F5144;
+  --color-forest-700: #266353;
+  --color-emerald-600: #26735B;
+  --color-emerald-700: #1D5C48;
+  --color-emerald-soft: #E9F3EE;
+  --color-sage-400: #8FAE9B;
+  --color-sage-300: #B3C9BC;
+  --color-gold-500: #D9A441;
+  --color-gold-600: #B98628;
+  --color-gold-soft: #FCF5E6;
+
+  /* 2. Primary & Secondary Surfaces */
+  --color-background: #F5F3EC;        /* Warm Ivory canvas */
+  --color-background-sage: #EDF1E9;   /* Soft Sage secondary background */
+  --color-surface: #FFFFFF;           /* Pure Surface */
+  --color-surface-subtle: #E5E9DF;    /* Subtle Green Surface */
+  --color-surface-warm: #FAF8F2;      /* Warm Hover Surface */
+  --color-surface-muted: #EDF1E9;
+
+  /* Semantic Aliases */
+  --color-primary: var(--color-forest-900);
+  --color-primary-hover: var(--color-forest-800);
+  --color-accent: var(--color-emerald-600);
+  --color-accent-hover: var(--color-emerald-700);
+  --color-accent-soft: var(--color-emerald-soft);
+  --color-bg: var(--color-background);
+
+  /* 3. Text Hierarchy */
+  --color-text: #202B27;              /* Deep Charcoal */
+  --color-text-secondary: #68746C;    /* Secondary Text */
+  --color-muted: #929B93;             /* Muted Text */
+  --color-text-muted: var(--color-muted);
+  --color-text-inverse: #F5F3EC;
+  --color-text-inverse-muted: #B8C7BE;
+
+  /* 4. Borders & Interactive States */
+  --color-border: #DCE2D6;
+  --color-border-strong: #C3CCBB;
+  --color-hover-surface: rgba(23, 63, 53, 0.045);
+  --color-focus-ring: rgba(38, 115, 91, 0.22);
+
+  /* 5. Semantic Statuses */
+  --color-success: #23865A;
+  --color-success-bg: #EAF6F0;
+  --color-success-border: #B6DFCA;
+
+  --color-warning: #C58A35;
+  --color-warning-bg: #FDF5E6;
+  --color-warning-border: #F0D49E;
+
+  --color-danger: #C75C58;
+  --color-danger-bg: #FDF0EF;
+  --color-danger-border: #EFC2C0;
+
+  --color-info: #5687B6;
+  --color-info-bg: #EEF5FA;
+  --color-info-border: #C1D7EA;
+
+  /* 6. Coordinated Category & Chart Series Palette */
+  --color-lavender: #7E74A6;
+  --color-lavender-bg: #F2F0F8;
+  --color-lavender-border: #D4CEE6;
+  --color-coral: #D47B6A;
+  --color-coral-bg: #FDF2EF;
+
+  --chart-1: #26735B;   /* Emerald */
+  --chart-2: #D9A441;   /* Warm Gold */
+  --chart-3: #5687B6;   /* Slate Info */
+  --chart-4: #7E74A6;   /* Soft Lavender */
+  --chart-5: #D47B6A;   /* Subtle Coral */
+  --chart-6: #173F35;   /* Deep Forest */
+  --chart-grid: #DCE2D6;
+  --chart-axis: #68746C;
+
+  /* 7. Glass Surfaces & Elevation */
+  --glass-bg: rgba(255, 255, 255, 0.72);
+  --glass-border: rgba(255, 255, 255, 0.55);
+  --glass-shadow: 0 10px 30px rgba(23, 63, 53, 0.08);
+  --glass-dark-bg: rgba(15, 43, 36, 0.88);
+  --glass-dark-border: rgba(143, 174, 155, 0.2);
+
+  --shadow-sm: 0 1px 2px rgba(32, 43, 39, 0.05);
+  --shadow-md: 0 6px 18px rgba(32, 43, 39, 0.07);
+  --shadow-lg: 0 18px 40px rgba(23, 63, 53, 0.14);
+
+  /* 8. Editorial Typography System */
+  --font-display: 'Plus Jakarta Sans', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+
+  --text-xs: 0.75rem;     /* 12px */
+  --text-sm: 0.8125rem;   /* 13px */
+  --text-base: 0.875rem;  /* 14px */
+  --text-md: 1rem;        /* 16px */
+  --text-lg: 1.125rem;    /* 18px */
+  --text-xl: 1.375rem;    /* 22px */
+  --text-2xl: 1.75rem;    /* 28px */
+
+  /* 9. Spacing, Radius & Shell Metrics (8px grid) */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 16px;
+  --space-4: 24px;
+  --space-5: 32px;
+  --space-6: 48px;
+  --space-8: 64px;
+
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 14px;
+  --radius-full: 9999px;
+
+  --sidebar-width: 268px;
+  --sidebar-collapsed-width: 74px;
+  --topbar-height: 64px;
+  --transition-fast: 150ms cubic-bezier(0.22, 1, 0.36, 1);
+  --transition-base: 220ms cubic-bezier(0.22, 1, 0.36, 1);
+}

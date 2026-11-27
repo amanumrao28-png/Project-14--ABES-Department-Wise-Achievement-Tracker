@@ -59,3 +59,33 @@ export async function markAllNotificationsRead(req, res, next) {
     next(err);
   }
 }
+
+export async function deleteNotification(req, res, next) {
+  try {
+    const { id } = req.params;
+    if (!id || !UUID_REGEX.test(id)) {
+      throw new AppError(400, 'INVALID_ID', 'Invalid notification ID.');
+    }
+
+    const deletedCount = await db('notifications')
+      .where({ id, recipient_user_id: req.user.id })
+      .del();
+
+    if (!deletedCount) {
+      throw new AppError(404, 'NOTIFICATION_NOT_FOUND', 'Notification not found.');
+    }
+
+    return sendSuccess(res, { deleted: true, id });
+  } catch (err) {
+    next(err);
+  }
+}
+
+export async function clearAllNotifications(req, res, next) {
+  try {
+    await db('notifications').where({ recipient_user_id: req.user.id }).del();
+    return sendSuccess(res, { cleared: true });
+  } catch (err) {
+    next(err);
+  }
+}

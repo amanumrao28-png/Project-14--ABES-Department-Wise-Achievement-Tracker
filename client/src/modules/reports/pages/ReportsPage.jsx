@@ -3,6 +3,7 @@ import { FileBarChart, Printer, ShieldCheck } from 'lucide-react';
 import { useAuth } from '../../../core/auth/AuthContext.jsx';
 import { ROLES } from '../../../core/constants/roles.js';
 import { reportsApi } from '../../../core/api/reportsApi.js';
+import { ACADEMIC_YEAR_OPTIONS } from '../../../shared/components/tracker/AchievementStatusBadge.jsx';
 
 export default function ReportsPage() {
   const { user } = useAuth();
@@ -125,44 +126,55 @@ export default function ReportsPage() {
         </button>
       </div>
 
-      <div style={{ display: 'flex', gap: '0.5rem', marginBottom: '1.25rem', flexWrap: 'wrap', alignItems: 'center', justifyContent: 'space-between' }}>
-        <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap' }}>
+      <div style={{ display: 'flex', gap: '0.75rem', marginBottom: '1.25rem', flexWrap: 'wrap', alignItems: 'center', justifyContent: 'space-between' }}>
+        <div className="tab-strip" style={{ marginBottom: 0, borderBottom: 'none', paddingBottom: 0 }}>
           {availableTabs.map((t) => (
             <button
               key={t.key}
               type="button"
-              className={`btn ${activeTab === t.key ? 'btn-primary' : 'btn-secondary'}`}
+              className={`tab-pill ${activeTab === t.key ? 'active' : ''}`}
               onClick={() => setActiveTab(t.key)}
             >
               {t.label}
             </button>
           ))}
         </div>
-        <input
-          type="text"
-          placeholder="Filter Academic Year (e.g. 2024-25)"
+        <select
           value={academicYear}
           onChange={(e) => setAcademicYear(e.target.value)}
-          className="form-input"
-          style={{ width: '210px' }}
-        />
+          className="form-select"
+          aria-label="Filter report by academic year"
+          style={{ width: '185px' }}
+        >
+          <option value="">All Academic Years</option>
+          {ACADEMIC_YEAR_OPTIONS.map((ay) => (
+            <option key={ay} value={ay}>
+              AY {ay}
+            </option>
+          ))}
+        </select>
       </div>
 
       {error && <div className="alert alert-error" role="alert">{error}</div>}
 
       {loading ? (
-        <div className="card" style={{ padding: '2rem', textAlign: 'center', color: 'var(--color-muted)' }}>
-          Generating authorized report...
+        <div className="card card-body">
+          <div className="skeleton-stack">
+            <div className="skeleton-line is-short" />
+            <div className="skeleton-block" />
+          </div>
         </div>
       ) : report?.sections ? (
         <div>
-          <div style={{ marginBottom: '0.75rem', fontSize: '0.82rem', color: '#065F46', display: 'flex', alignItems: 'center', gap: '0.35rem' }}>
+          <div style={{ marginBottom: '1rem', fontSize: '0.82rem', color: 'var(--color-success)', display: 'flex', alignItems: 'center', gap: '0.35rem', fontWeight: 600 }}>
             <ShieldCheck size={15} />
             Consolidated report presents isolated tracker sections — scores are never combined.
           </div>
-          {renderSummaryCard('Department Achievements Section', report.sections.department)}
-          {renderSummaryCard('Faculty Achievements Section', report.sections.faculty)}
-          {renderSummaryCard('Student Achievements Section', report.sections.student)}
+          <div className="tracker-cards-grid">
+            {renderSummaryCard('Department Achievements', report.sections.department)}
+            {renderSummaryCard('Faculty Achievements', report.sections.faculty)}
+            {renderSummaryCard('Student Achievements', report.sections.student)}
+          </div>
         </div>
       ) : report ? (
         <div>
